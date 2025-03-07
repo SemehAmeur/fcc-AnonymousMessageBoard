@@ -9,10 +9,12 @@ const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
 
 const helmet = require("helmet");
+
+const app = express();
+
 app.use(helmet());
 app.use(helmet.referrerPolicy({ policy: "same-origin" }));
 
-const app = express();
 
 app.use('/public', express.static(process.cwd() + '/public'));
 
