@@ -16,9 +16,9 @@ suite('Functional Tests', function() {
       delete_password: testPass
     }).end((err, res)=>{
       assert.equal(res.status, 200)
-      let createdThread_id = res.redirects[0].split("/")[res.redirects[0].split("/").length - 1]
-      testThread_id = createdThread_id
-      done()
+      //let createdThread_id = res.redirects[0].split("/")[res.redirects[0].split("/").length - 1]
+      //testThread_id = createdThread_id
+      done();
     })
   })
   

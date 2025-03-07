@@ -40,7 +40,7 @@ module.exports = function (app) {
     newThread.replies = [];
     newThread.save((err, data)=>{
       if(!err && data){
-        console.log(data)
+        //console.log(data)
         return res.redirect("/b/" + data.board + "/" + data._id)
       }
     })
@@ -49,8 +49,9 @@ module.exports = function (app) {
   app.post("/api/replies/:board", (req, res)=>{
     
     let newReply = new Reply(req.body)
-    
-    newReply.created_on = new Date().toUTCSting();
+    console.log(req.body)
+    console.log("test1")
+    newReply.created_on = new Date().toUTCString();
     newReply.reported = false;
     
     Thread.findByIdAndUpdate(
