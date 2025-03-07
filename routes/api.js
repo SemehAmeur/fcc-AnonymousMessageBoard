@@ -45,4 +45,25 @@ module.exports = function (app) {
       }
     })
   })
+  
+  app.post("/api/replies/:board", (req, res)=>{
+    
+    let newReply = new Reply(req.body)
+    
+    newReply.created_on = new Date().toUTCSting();
+    newReply.reported = false;
+    
+    Thread.findByIdAndUpdate(
+      req.body.thread_id, 
+      {$push: {replies: newReply}, bumped_on: new Date().toUTCString()},
+      {new: true},
+      (err, updatedData)=>{
+        if (!err && updatedData){
+          res.redirect("/b/" + updatedData.board + "/" + updatedData._id + "?new_reply_id=" + newReply._id)
+        }
+      }
+  
+    )
+    
+  })
 };
