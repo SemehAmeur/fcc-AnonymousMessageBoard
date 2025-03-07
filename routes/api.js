@@ -47,10 +47,11 @@ module.exports = function (app) {
   })
   
   app.post("/api/replies/:board", (req, res)=>{
+    console.log("test1")
     
     let newReply = new Reply(req.body)
     console.log(req.body)
-    console.log("test1")
+    
     newReply.created_on = new Date().toUTCString();
     newReply.reported = false;
     
