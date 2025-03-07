@@ -30,7 +30,19 @@ module.exports = function (app) {
     
   //app.route('/api/replies/:board');
   app.post("/api/threads/:board", (req, res)=>{
-    console.log(req.body)
-    return
+    let newThread = new Thread(req.body);
+    if(!newThread.board || newThread.board ==""){
+      newThread.board= req.params.board;
+    }
+    newThread.created_on = new Date().toUTCString();
+    newThread.bumped_on = new Date().toUTCString();
+    newThread.reported = false;
+    newThread.replies = [];
+    newThread.save((err, data)=>{
+      if(!err && data){
+        console.log(data)
+        return res.redirect("/b/" + data.board + "/" + data._id)
+      }
+    })
   })
 };
