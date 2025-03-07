@@ -22,15 +22,60 @@ module.exports = function (app) {
     reported: {type: Boolean, required: true},
     replies: [replySchema]
   })
-  
+  let BoardSchema = new mongoose.Schema({
+    name: { type: String },
+    threads: { type: [threadSchema] },
+  });
+
   let Reply = mongoose.model("Reply", replySchema);
-  let Thread = mongoose.model("Thread", threadSchema);
-  
+  let Thread = mongoose.model("Thread", threadSchema)
+  let Board = mongoose.model("Board", BoardSchema);
+
   //app.route('/api/threads/:board');
     
   //app.route('/api/replies/:board');
   app.post("/api/threads/:board", (req, res)=>{
-    let newThread = new Thread(req.body);
+    const { text, delete_password } = req.body;
+      let board = req.body.board;
+      if (!board) {
+        board = req.params.board;
+      }
+      console.log("post", req.body);
+      const newThread = new threadSchema({
+        text: text,
+        delete_password: delete_password,
+        replies: [],
+      });
+      console.log("newThread", newThread);
+      Board.findOne({ name: board }, (err, Boarddata) => {
+        if (!Boarddata) {
+          const newBoard = new Board({
+            name: board,
+            threads: [],
+          });
+          console.log("newBoard", newBoard);
+          newBoard.threads.push(newThread);
+          newBoard.save((err, data) => {
+            console.log("newBoardData", data);
+            if (err || !data) {
+              console.log(err);
+              res.send("There was an error saving in post");
+            } else {
+              res.json(newThread);
+            }
+          });
+        } else {
+          Boarddata.threads.push(newThread);
+          Boarddata.save((err, data) => {
+            if (err || !data) {
+              res.send("There was an error saving in post");
+            } else {
+              res.json(newThread);
+            }
+          });
+        }
+      });
+    /*let newThread = new Thread(req.body);
     if(!newThread.board || newThread.board ==""){
       newThread.board= req.params.board;
       console.log(req.params, req.params.board)
@@ -42,14 +87,16 @@ module.exports = function (app) {
     newThread.replies = [];
     console.log(newThread)
     try{
-      
-    }
-    newThread.save((err, data)=>{
+      newThread.save((err, data)=>{
       if(!err && data){
         //console.log(data)
         return res.redirect("/b/" + data.board + "/" + data._id)
       }
     })
+    } catch(e){
+      console.log(e)
+    }
+    */
     /*
     let board = req.params.board;
 
