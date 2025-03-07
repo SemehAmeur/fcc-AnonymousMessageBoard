@@ -33,17 +33,41 @@ module.exports = function (app) {
     let newThread = new Thread(req.body);
     if(!newThread.board || newThread.board ==""){
       newThread.board= req.params.board;
+      console.log(req.params, req.params.board)
     }
-    newThread.created_on = new Date().toUTCString();
-    newThread.bumped_on = new Date().toUTCString();
+    //newThread.board = 
+    newThread.created_on = new Date();
+    newThread.bumped_on = new Date();
     newThread.reported = false;
     newThread.replies = [];
+    console.log(newThread)
+    try{
+      
+    }
     newThread.save((err, data)=>{
       if(!err && data){
         //console.log(data)
         return res.redirect("/b/" + data.board + "/" + data._id)
       }
     })
+    /*
+    let board = req.params.board;
+
+    let newThread = await Message.create({
+      board: board,
+      text: req.body.text,
+      created_on: new Date(),
+      bumped_on: new Date(),
+      reported: false,
+      delete_password: req.body.delete_password,
+      replies: []
+    });
+
+    return res.redirect("/b/" + board);
+  } catch (err) {
+    return res.json("error");
+  }
+    */
   })
   
   app.post("/api/replies/:board", (req, res)=>{

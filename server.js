@@ -12,8 +12,8 @@ const helmet = require("helmet");
 
 const app = express();
 
-app.use(helmet());
-app.use(helmet.referrerPolicy({ policy: "same-origin" }));
+//app.use(helmet());
+//app.use(helmet.referrerPolicy({ policy: "same-origin" }));
 
 
 app.use('/public', express.static(process.cwd() + '/public'));
