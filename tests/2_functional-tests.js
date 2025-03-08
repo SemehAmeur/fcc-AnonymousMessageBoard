@@ -4,7 +4,14 @@ const assert = chai.assert;
 const server = require('../server');
 
 chai.use(chaiHttp);
+/*
 
+const mongoose = require("mongoose");
+
+module.exports = function (app) {
+  
+  mongoose.connect(process.env.DB, { useNewUrlParser: true, useUnifiedTopology: true })
+*/
 suite('Functional Tests', function() {
   let testThread_id;
   let testReply_id;
