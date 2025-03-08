@@ -45,7 +45,7 @@ module.exports = function (app) {
     newThread.save((err, data)=>{
       if(!err && data){
         //console.log(data)
-        return res.redirect("/b/" + data.board + "/" + data._id)
+        return res.json(data);
       }
     })
     /*
