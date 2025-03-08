@@ -147,17 +147,15 @@ module.exports = function (app) {
 							request.body.thread_id,
 							(error, deletedThread) => {
 								if(!error && deletedThread){
-									return response.json('success')
+									return response.send('success')
 								}
 							}
 						)
 
 					}else{
-						return response.json('incorrect password')
+						return response.send('incorrect password')
 					}
 
-				}else{
-					return response.json('Thread not found')
 				}
 
 			}
@@ -185,12 +183,12 @@ module.exports = function (app) {
 
 					threadToUpdate.save((error, updatedThread) => {
 						if(!error && updatedThread){
-							return response.json('success')
+							return response.send('success')
 						}
 					})
 
 				}else{
-					return response.json('Thread not found')
+					return response.send('Thread not found')
 				}
 			}
 		)
@@ -204,7 +202,7 @@ module.exports = function (app) {
 			{new: true},
 			(error, updatedThread) => {
 				if(!error && updatedThread){
-					return response.json('success')
+					return response.send('reported')
 				}
 			}
 		)
@@ -225,7 +223,7 @@ module.exports = function (app) {
 
 				threadToUpdate.save((error, updatedThread) => {
 					if(!error && updatedThread){
-						return response.json('success')
+						return response.send('success')
 					}
 				})
 
