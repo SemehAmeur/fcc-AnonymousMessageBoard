@@ -163,7 +163,7 @@ module.exports = function (app) {
 							if(threadToUpdate.replies[i].delete_password === req.body.delete_password){
 								threadToUpdate.replies[i].text = '[deleted]'
 							}else{
-								return res.json('incorrect password')
+								return res.send('incorrect password')
 							}
 						}
 					}
