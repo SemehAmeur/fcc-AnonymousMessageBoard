@@ -106,7 +106,7 @@ suite('Functional Tests', function() {
 				delete_password: "fdsgdsfghdfsg"
 			})
 			.end((err, res) => {
-				assert.equal(res.text, 'incorrect password')
+				assert.equal(res.text, '"incorrect password"')
 				done()
 			})
 	})
